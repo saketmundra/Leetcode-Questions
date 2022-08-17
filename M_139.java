@@ -5,23 +5,21 @@ public class M_139 {
 
     }
     public boolean wordBreak(String s, List<String> wordDict) {
-        HashSet<String> words = new HashSet<String>();
-        for(int i=0;i<wordDict.size();i++){
-            words.add(wordDict.get(i));
-        }
-        String temp="";
-        for(int i=0;i<s.length();i++){
-            temp+=s.charAt(i);
-            if(words.contains(temp)){
-                temp="";
-                if(words.contains(s.substring(i+1))){
-                    return true;
-                }
+        if (s == null || s.length() == 0) return false;
+        int n = s.length();
+        boolean[] dp = new boolean[n];
 
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                String sub = s.substring(j, i + 1);
+                if (wordDict.contains(sub) && (j == 0 || dp[j - 1])) {
+                    dp[i] = true;
+                    break;
+                }
             }
-            System.out.println(temp);
         }
-        return temp.isEmpty();
+
+        return dp[n - 1];
 
     }
 }

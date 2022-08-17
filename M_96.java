@@ -5,15 +5,19 @@ public class M_96 {
 
     }
     public int numTrees(int n) {
-        int num=factorial(2*n);
-        int den=factorial(n+1)* factorial(n);
-        return num/den;
+        int [] dp=new int[n+1];
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2;i<=n;i++){
+            int ans=0;
+            for(int j=0;j<i;j++){
+                ans+=dp[j]*dp[i-j];
+            }
+            System.out.println(ans);
+            dp[i]=ans;
+        }
+        return dp[n];
 
     }
-    public int factorial(int n){
-        if (n == 0)
-            return 1;
-        else
-            return(n * factorial(n-1));
-    }
+
 }

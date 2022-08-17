@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
 
 public class extra {
     public static void main(String[] args) {
@@ -11,6 +8,59 @@ public class extra {
 
 
     }
+    public int[] numberOfPairs(int[] nums) {
+        HashSet hs=new HashSet();
+        int [] ans=new int[2];
+        int pairs=0;
+        for(int i=0;i<nums.length;i++){
+            if(!hs.contains(nums[i])){
+                hs.add(nums[i]);
+            }
+            else{
+                pairs++;
+                hs.remove(nums[i]);
+            }
+        }
+        ans[0]=pairs;
+        ans[1]=hs.size();
+        return ans;
+    }
+    public int maximumSum(int[] nums) {
+        HashMap<Integer,ArrayList<Integer>> hs=new HashMap<Integer,ArrayList<Integer>>();
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<nums.length;i++){
+            System.out.println(getsum(nums[i]));
+            if(!hs.containsKey(getsum(nums[i]))){
+                ArrayList<Integer> n=new ArrayList<>();
+                n.add(nums[i]);
+                hs.put(getsum(nums[i]),n);
+            }
+            else{
+                ArrayList<Integer> test =hs.get(getsum(nums[i]));
+                for(int j=0;j<test.size();j++){
+                    max=Math.max(max,test.get(j)+nums[i]);
+                }
+                test.add(nums[i]);
+                hs.put(getsum(nums[i]),test);
+
+            }
+        }
+        return max;
+    }
+    private int getsum(int n){
+        int sum=0;
+        while(n>0){
+            sum+=n%10;
+            n=n/10;
+        }
+        return sum;
+    }
+
+
+
+
+
+
     public static String function1 (String s){
         HashSet<Character> vowels=new HashSet<>();
         vowels.add('a');
