@@ -10,10 +10,12 @@ public class M_698 {
         if(sum%k==1) return false;
         sum=sum/k;
         ans(nums,sum);
+        return true;
 
 
     }
     public void ans(int[]nums,int target){
+        return;
 
 
     }

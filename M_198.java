@@ -5,6 +5,7 @@ package com.company;
  */
 public class M_198 {
     public int rob(int[] nums) {
+        int n=0;
 
         int [] dp=new int [n+1];
         if(nums.length==1) return nums[0];
