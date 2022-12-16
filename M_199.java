@@ -16,6 +16,21 @@ public class M_199 {
     }
     public static void main(String[] args) {
 
+
+    }
+    public List<Integer> result=new ArrayList<>();
+    public List<Integer> rightSideView(TreeNode root) {
+        rightSide(root,0);
+        return result;
+    }
+    public void rightSide(TreeNode root,int level) {
+        if(root==null)return;
+        if(level==result.size()){
+            result.add(root.val);
+        }
+        rightSide(root.right,level+1);
+        rightSide(root.left,level+1);
+
     }
 
 }
