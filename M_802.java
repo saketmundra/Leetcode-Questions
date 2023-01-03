@@ -6,26 +6,38 @@ public class M_802 {
 
     }
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        int [] ans=new int[graph.length];
-        Arrays.fill(ans,0);
-        HashSet<Integer> term=new HashSet<>();
+        int [] vis= new int [graph.length];
+        int [] pvis=new int[graph.length];
+        int [] check=new int[graph.length];
         for(int i=0;i< graph.length;i++){
-            if(graph[i].length==0 || (graph[i].length==1 && graph[i][0]==i+1)){
-                term.add(i);
-                ans[i]=1;
+            if(vis[i]==0){
+                checkforcycle(i,vis,pvis,check,graph);
             }
         }
+        List<Integer> ans=new ArrayList<>();
         for(int i=0;i< graph.length;i++){
-            boolean find=false;
-            for(int j=0;j<graph[i].length;j++){
-                if(!term.contains(graph[i][j]))find=true;
+            if(check[i]==1){
+                ans.add(i);
             }
-            if(find==false)ans[i]=1;
         }
-        List<Integer> answer=new ArrayList<>();
-        for(int i=0;i<ans.length;i++){
-            if(ans[i]==1)answer.add(i) ;
-        }
-        return answer;
+        return ans;
     }
+    static boolean checkforcycle(int node,int vis[],int [] pvis,int [] check,int[][] graph){
+        vis[node]=1;
+        pvis[node]=1;
+        check[node]=0;
+        for(int i=0;i<graph[node].length;i++){
+            Integer it=graph[node][i];
+            if(vis[it]==0){
+                if(checkforcycle(it,vis,pvis,check,graph)==true)return true;
+            }
+            else if(pvis[it]==1){
+                return true;
+            };
+        }
+        check[node]=1;
+        pvis[node]=0;
+        return false;
+    }
+
 }
